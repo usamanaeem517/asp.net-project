@@ -1,0 +1,310 @@
+﻿@model  Rave.Models.User_Songs
+
+@{
+    ViewBag.Title = "RAVE - User";
+}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/layout_1.css">
+    <link rel="stylesheet" href="~/Content/constant.css">
+    <link rel="stylesheet" href="~/Content/popup.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <style>
+        body {
+            background-color: #353535;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="menu">
+        <img src="~/images/name.png" class="name-logo" height="50px">
+
+        <div class="wrapper">
+            <nav>
+                <ul>
+                    <li data-rel="1" class="active">My Rave</li>
+                    <li data-rel="2">My Concerts</li>
+                    <li data-rel="3">My Playlist</li>
+                    <li data-rel="4">Trending</li>
+                    <li data-rel="5">My Account</li>
+
+                </ul>
+            </nav>
+
+        </div>
+
+    </div>
+    <div class="main-container">
+        <div class="container">
+            <section class="my-rave">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Album</th>
+                            <th>Singer</th>
+                            <th>Duration</th>
+                            <th>Genre</th>
+                            <th>Rating</th>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+
+                    @foreach (var song in Model.songs)
+                    {
+                        <tr class="hoverable">
+                            <td>@song.song_name</td>
+                            <td>@song.album_name</td>
+                            <td>@song.singer_name</td>
+                            <td>@song.duration</td>
+                            <td>@song.genre</td>
+                            <td>@song.rating</td>
+                            
+                            <td >
+                                <div class="flex flex-right">
+                                    <button id="@song.ID" data-metadata="@song.toJSON()"
+                                            class="material-icons material-btn play-init">
+                                        play_circle_outline
+                                    </button>
+                                    <button data-metadata="@song.toJSON()" class="material-icons  material-btn fav">
+                                        favorite_border
+                                    </button>
+                                    <div class="rate flex" data-metadata="@song.toJSON()">
+                                       <span class="material-icons" data-rating="1">grade</span>
+                                       <span class="material-icons" data-rating="2">grade</span>
+                                       <span class="material-icons" data-rating="3">grade</span>
+                                       <span class="material-icons" data-rating="4">grade</span>
+                                       <span class="material-icons" data-rating="5">grade</span>
+
+                                     </div>
+                                </div>
+                            </td>
+
+                        </tr>
+                    }
+
+                </table>
+            </section>
+
+
+            <section>
+                <div class="my-rave">
+                    <h3>Upcoming</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Venue</th>
+                                <th>Price</th>
+                                <th>Seats Left</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+
+                        @foreach (var concert in Model.concerts_upcoming)
+                        {
+                    <tr class="hoverable">
+                        <td>@concert.name</td>
+                        <td>@concert.date</td>
+                        <td>@concert.time</td>
+                        <td>@concert.venue</td>
+                        <td>@concert.price</td>
+                        <td>@concert.seatsleft</td>
+                        <td>
+                            <button onclick="window.open('@concert.location_link')" class="material-icons material-btn">
+                                location_on
+                            </button>
+                        </td>
+                        <td>
+                            <button data-metadata="@concert.toJSON()" class="material-icons material-btn cncrt-add">
+                                add_circle_outline
+                            </button>
+                        </td>
+                    </tr>
+                        }
+
+                    </table>
+                    <h3>Attending</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Venue</th>
+                                <th>Price</th>
+                              
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+
+                        @foreach (var concert in Model.concerts_attending)
+                        {
+                            <tr class="hoverable">
+                                <td>@concert.name</td>
+                                <td>@concert.date</td>
+                                <td>@concert.time</td>
+                                <td>@concert.venue</td>
+                                <td>@concert.price</td>
+                                <td>
+                                    <button onclick="window.open('@concert.location_link')" class="material-icons material-btn">
+                                        location_on
+                                    </button>
+                                </td>
+                                
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+
+            </section>
+
+
+            <section class="my-rave">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Album</th>
+                            <th>Singer</th>
+                            <th>Duration</th>
+                            <th>Genre</th>
+                            <th>Rating</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+
+                    @foreach (var song in Model.playlist_songs)
+                    {
+                        <tr class="hoverable">
+                            <td>@song.song_name</td>
+                            <td>@song.album_name</td>
+                            <td>@song.singer_name</td>
+                            <td>@song.duration</td>
+                            <td>@song.genre</td>
+                            <td>@song.rating</td>
+
+                            <td>
+                                <button id="@song.ID" data-metadata="@song.toJSON()"
+                                        class="material-icons material-btn play-init">
+                                    play_circle_outline
+                                </button>
+                            </td>
+                            
+                        </tr>
+                     }
+
+                </table>
+            </section>
+            
+            <section class="my-rave">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Album</th>
+                            <th>Singer</th>
+                            <th>Duration</th>
+                            <th>Genre</th>
+                            <th>Rating</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+
+                    @foreach (var song in Model.trending_songs)
+                    {
+                        <tr class="hoverable">
+                            <td>@song.song_name</td>
+                            <td>@song.album_name</td>
+                            <td>@song.singer_name</td>
+                            <td>@song.duration</td>
+                            <td>@song.genre</td>
+                            <td>@song.rating</td>
+
+                            <td>
+                                <button id="@song.ID" data-metadata="@song.toJSON()"
+                                        class="material-icons material-btn play-init">
+                                    play_circle_outline
+                                </button>
+                            </td>
+
+                        </tr>
+                    }
+
+                </table>
+                
+
+            </section>
+            
+            <section>
+                <div>
+                    <h2>@Model.user.name's Account</h2>
+                    <h3 style="font-weight:200">Username: @Model.user.name </h3>
+                    <h3 style="font-weight:200"> ID: @Model.user.id</h3>
+                    
+                    <a href="/MyFirst/logout" id="logout" class="song-btn" >Log Out</a>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="music-player">
+            <div class="now-playing">
+                <h2>Now Playing</h2>
+                <hr>
+                <div id="no-play">
+                    <h3 style="font-weight: 100" ;>No track is playing</h3>
+
+                </div>
+                <div id="yes-play" style="display:none; font-size: 25px">
+                    <div><img id="album-art" src="/Music/no_art.jpg" style="height: 150px; width:150px; border-radius: 25px;"></div>
+                    <div id="name">:Name:</div>
+                    <br />
+                    <div id="album" style="font-size: 20px; color:lightslategrey;">:Album:</div>
+                    <br />
+                    <div id="artist" style="font-size:20px; color:lightslategrey;">:Artist:</div>
+                    <br />
+                    <div id="genre" style="font-size:20px; color:lightslategrey;">:Genre:</div>
+                    <br />
+
+                    <div class="progress" id="progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <button id="pause" class="material-icons material-btn">pause</button>
+                    <button id="play" class="material-icons material-btn">play_arrow</button>
+                    <button id="restart" class="material-icons material-btn">replay</button>
+                    <div id="vlink" class="material-icons" style="cursor: pointer">music_video</div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+
+        (function ($) {
+            $('nav li').click(function () {
+                $(this).addClass('active').siblings('li').removeClass('active');
+                $('section:nth-of-type(' + $(this).data('rel') + ')').stop().fadeIn(400, 'linear').siblings('section').stop().fadeOut(400, 'linear');
+            });
+        })(jQuery);
+
+       
+
+    </script>
+    <script src="~/Scripts/media-player.js"></script>
+</body>
+</html>

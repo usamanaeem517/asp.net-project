@@ -1,0 +1,175 @@
+﻿@model  Rave.Models.Manager_Concerts
+
+
+@{
+    ViewBag.Title = "RAVE - Manager";
+}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/layout_1.css">
+    <link rel="stylesheet" href="~/Content/constant.css">
+    <link rel="stylesheet" href="~/Content/popup.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <style>
+        body {
+            background-color: #353535;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="menu">
+        <img src="~/images/name.png" class="name-logo" height="50px">
+
+        <div class="wrapper">
+            <nav>
+                <ul>
+                    <li data-rel="1">My Concerts</li>
+                    <li data-rel="2">My Account</li>
+                </ul>
+            </nav>
+
+        </div>
+
+    </div>
+    <div class="main-container">
+        <div class="container">
+            <section>
+                <!-- Concerts -->
+                <div class="my-rave">
+                    <h3>Upcoming</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Venue</th>
+                                <th>Price</th>
+                                <th>Seats Left</th>
+                                <th>Seats Taken</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+
+                        @foreach (var concert in Model.concerts_upcoming)
+                        {
+                    <tr class="hoverable">
+                        <td>@concert.name</td>
+                        <td>@concert.date</td>
+                        <td>@concert.time</td>
+                        <td>@concert.venue</td>
+                        <td>@concert.price</td>
+                        <td>@concert.seatsleft</td>
+                         
+                        <td>@concert.seatstaken</td>
+                        <td>
+                            <button onclick="window.open('@concert.location_link')" class="material-icons material-btn">
+                                location_on
+                            </button>
+                        </td>
+
+                    </tr>
+                        }
+
+                    </table>
+                </div>
+                <div class="my-rave">
+                    <h3>Finished</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Venue</th>
+                                <th>Price</th>
+                                <th>Seats Taken</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+
+                        @foreach (var concert in Model.concerts_finished)
+                        {
+                    <tr class="hoverable">
+                        <td>@concert.name</td>
+                        <td>@concert.date</td>
+                        <td>@concert.time</td>
+                        <td>@concert.venue</td>
+                        <td>@concert.price</td>
+                        <td>@concert.seatstaken</td>
+                        <td>
+                            <button onclick="window.open('@concert.location_link')" class="material-icons material-btn">
+                                location_on
+                            </button>
+                        </td>
+                    </tr>
+                        }
+
+                    </table>
+                </div>
+            </section>
+
+
+            <section>
+                <h2>@Model.manager.name's Account</h2>
+                <h3 style="font-weight:200">Username: @Model.manager.name </h3>
+                <h3 style="font-weight:200"> ID: @Model.manager.id</h3>
+
+                <a href="/MyFirst/logout" id="logout" class="song-btn">Log Out</a>
+            </section>
+
+        </div>
+
+        <button class="song-btn" onclick="openForm()">Add Concerts</button>
+    </div>
+    <div class="form-popup" id="myForm">
+        <form action="../MyFirst/add_concert" method="post" class="form-container" enctype="multipart/form-data">
+            <p class="fields">Concert Name</p>
+            <input type="text" id="c_name" name="c_name" required>
+            <p class="fields">Date</p>
+            <input type="date" id="date" name="date" placeholder="MM-DD-YYYY" required>
+            <p class="fields">Time</p>
+            <input type="time" id="time" name="time" placeholder="HH:MM" required>
+            <p class="fields">Venue</p>
+            <input type="text" id="venue" name="venue" required>
+            <p class="fields">Price</p>
+            <input type="text" id="price" name="price" required>
+            <p class="fields">Seats</p>
+            <input type="text" id="seats" name="seats" required>
+            <p class="fields">Location</p>
+            <input type="text" id="location" name="location" >
+            <p class="fields">Singer's Email</p>
+            <input type="text" id="s_email" name="s_email" required>
+            <input type="hidden" name="cID" value="@Model.manager.id" />
+            <button type="submit" class="song-btn">Add</button>
+            <button type="button" class="song-btn cancel" onclick="closeForm()">Close</button>
+        </form>
+    </div>
+
+    <script>
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+
+
+        (function ($) {
+            $('nav li').click(function () {
+                $(this).addClass('active').siblings('li').removeClass('active');
+                $('section:nth-of-type(' + $(this).data('rel') + ')').stop().fadeIn(400, 'linear').siblings('section').stop().fadeOut(400, 'linear');
+            });
+        })(jQuery);
+
+    </script>
+    <script src="~/Scripts/media-player.js"></script>
+</body>
+</html>

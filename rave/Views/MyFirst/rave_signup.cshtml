@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "RAVE - Sign Up";
+}
+
+@model  string
+<!DOCTYPE HTML>
+<head>
+    <title>@ViewBag.Title</title>
+    <script src="~/Scripts/javascript.js"></script>
+    <link rel="stylesheet" href="~/Content/styles.css">
+    <link rel="stylesheet" href="~/Content/slider.css">
+    <script src="~/Scripts/slider.js"></script>
+    <style>
+        body {
+            margin: 0 auto;
+            background: black;
+        }
+    </style>
+</head>
+<body>
+
+        <div id="album-art-bg"></div>
+        <div class="SignupPanel panel">
+            <form method="post" action="../MyFirst/authenticate_SignUp">
+                <img src="/images/logo.png" id="Logo" class="rave-logo" height="100px">
+                <img src="/images/name.png" class="rave-logo-text" height="20px">
+                <p class="headers">Username</p>
+                <input type="text" id="Username" name="name" required>
+                <p class="headers">E-Mail</p>
+                <input type="email" id="Email" name="email" placeholder="someone@something.com" required>
+                <p class="headers">Password</p>
+                <input type="password" id="Password" name="pass" required><br />
+
+                <p class="headers">Account Type:</p>
+                <select id="account-type" name="account" style="border-radius:25px">
+                    <option value="User">User</option>
+                    <option value="Singer">Singer</option>
+                    <option value="Manager">Manager</option>
+                </select><br />
+                <input type="submit" class="panel-btn" value="Sign Up" onclick="checkForEmptyFieldsSignup()">
+            </form>
+        </div>
+
+        <div class="lowerPanel">
+            <div class="error">@Model</div>
+            <p><a href="@Url.Action("login")" style=color:white>Already have an account?<br>Log In</a></p>
+        </div>
+
+    </body>
+
+

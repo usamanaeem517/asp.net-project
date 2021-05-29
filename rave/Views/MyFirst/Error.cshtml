@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Error";
+}
+
+@model string
+
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="stylesheet" href="~/Content/constant.css" >
+        <style>
+            #err-container {
+                text-align: center;
+                font-size: x-large;
+                font-family: Nineteenth;
+               
+            }
+        </style>
+    </head>
+    <body>
+        <div id="err-container"> Oh no! Rave ran into an error :/ </div>
+        <div style="text-align: center;margin-top: 20px">
+            @Model
+            <p><a href="@Url.Action("login")" style=color:blue>refresh and login</a></p>
+            <img src="~/images/logo.png" style="height: 70px; opacity: 0.5">
+        </div>
+       
+    </body>
+</html>
