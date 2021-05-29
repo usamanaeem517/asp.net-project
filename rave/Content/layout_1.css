@@ -1,0 +1,120 @@
+﻿.main-container {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 24px;
+    align-items: start;
+}
+
+.container {
+    flex-basis: 60%;
+    background-color: #292929;
+    text-align: center;
+    padding: 20px 0 20px 0;
+    border-radius: 25px;
+}
+
+.music-player {
+    flex-basis: 35%;
+    text-align: center;
+    font-family: Nineteenth;
+    color: white;
+}
+
+.music-player .now-playing {
+    background-color: #292929;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.container section {
+    display: none;
+    color: white;
+    font-family: Nineteenth;
+}
+
+.container section:first-child {
+    display: block;
+}
+
+.my-rave {
+    max-height: 600px;
+    overflow-y: auto;
+    margin: 12px 24px;
+}
+
+.my-rave table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.my-rave td,
+.my-rave th {
+    text-align: left;
+}
+
+.my-rave th {
+    box-shadow: 0px 1px white;
+    padding: 8px;
+    font-size: 18px;
+    position: sticky;
+    top: 0;
+    background-color: #292929;
+}
+
+.my-rave td {
+    padding: 4px;
+}
+
+.my-rave tr.hoverable:hover {
+    background: #333;
+}
+
+.material-btn {
+    background: none;
+    border: none;
+    padding: 4px;
+    color: white;
+    outline: none;
+    cursor: pointer;
+}
+
+#progress {
+    background: #333;
+    cursor: pointer;
+}
+
+#progress .progress-bar {
+    width: 1px;
+    height: 3px;
+    background: #006B5A;
+    transition: width .1s linear;
+}
+
+.rate span {
+    cursor: pointer;
+}
+
+/* make all stars gold by default */
+.rate span {
+    color: gold;
+}
+
+/* when not hovering, make all stars after rating gray */
+.rate:not(:hover) span.rated-star ~ span {
+    color: gray;
+}
+
+/* when hovering, make all stars after hovered star gray */
+.rate:hover span:hover ~ span {
+    color: gray;
+}
+
+
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+.flex-right {
+    justify-content: flex-end;
+}
