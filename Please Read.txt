@@ -1,0 +1,10 @@
+signup in crud
+upload in controller
+addconcert in crud
+
+The code for sending e-mails is currently commented to avoid sending unncecessary e-mails during checking.
+To test please uncomment the code for these locations:
+
+'signup' procedure in CRUD
+'upload' procedure in controller
+'add_concert' procedure in CRUD
